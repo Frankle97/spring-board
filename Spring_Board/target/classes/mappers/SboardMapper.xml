@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 1.2//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.SboardMapper">
+	<insert id="insert">
+		insert into sboard1 (bname, bpass, btitle, bcontent, bip, image) values (#{bname}, #{bpass}, #{btitle}, #{bcontent}, #{bip}, #{image})
+	</insert>
+	
+	<select id="showList" resultType="SboardDto">
+		select * from sboard1 order by bno desc
+	</select>
+
+	<select id="detail" resultType="SboardDto">
+		select * from sboard1 where bno = #{bno}
+	</select>
+	
+	<select id="searchList" resultType="SboardDto">
+		select * from sboard1 where btitle like '%${btitle}%'
+	</select>
+	
+	<update id="hit_up">
+		update sboard1 set bhit=bhit+1 where bno = #{bno}
+	</update>	
+	<update id="update">
+		update sboard1 set btitle = #{btitle}, bcontent = #{bcontent}, image = #{image} where bno = #{bno} and bpass = #{bpass}
+	</update>
+	
+	<delete id="delete">
+		delete from sboard1 where bno = #{bno} and bpass = #{bpass}
+	</delete>
+	
+</mapper>
