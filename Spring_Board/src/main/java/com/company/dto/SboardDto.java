@@ -12,7 +12,7 @@ public class SboardDto {
 	private String bdate;
 	private String image;
 	
-public SboardDto() {
+	public SboardDto() {
 		
 	}
 	
