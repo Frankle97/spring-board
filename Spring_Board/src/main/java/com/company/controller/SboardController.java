@@ -31,6 +31,7 @@ public class SboardController {
 	public String write() throws Exception {
 		return "/board/board_write";
 	}
+	
 	@RequestMapping(value = "/board_write", method = RequestMethod.POST)
 	public String writeAct(MultipartFile file, HttpServletRequest request, SboardDto dto, RedirectAttributes rttr) throws Exception {
 		String res = "fail";
@@ -49,25 +50,31 @@ public class SboardController {
 		} 
 		return "redirect:/board/showList";
 	}
+	
 	public void imageName() {
 		
+		
 	}
+	
 	@RequestMapping(value = "/showList", method = RequestMethod.GET)
 	public String list(Model model) throws Exception {
 		model.addAttribute("list", service.showList());
 		return "/board/list";
 	}
+	
 	@RequestMapping(value = "/board_detail", method = RequestMethod.GET)
 	public String detail(SboardDto dto, Model model) throws Exception {
 		model.addAttribute("boardVO", service.detail(dto));
 		service.hit_up(dto);
 		return "/board/board_detail";
 	}
+	
 	@RequestMapping(value = "/board_delete", method = RequestMethod.GET)
 	public String delete(SboardDto dto, Model model) throws Exception {
 		model.addAttribute("boardVO", service.detail(dto));
 		return "/board/board_delete";
 	}
+	
 	@RequestMapping(value = "/board_delete", method = RequestMethod.POST)
 	public String deleteAction(SboardDto dto, RedirectAttributes rttr) throws Exception {
 		String res = "fail";
@@ -77,11 +84,13 @@ public class SboardController {
 		}
 		return "redirect:/board/showList";
 	}
+	
 	@RequestMapping(value = "/board_modify", method = RequestMethod.GET)
 	public String modify(SboardDto dto, Model model) throws Exception {
 		model.addAttribute("boardVO", service.detail(dto));
 		return "/board/board_modify";
 	}
+	
 	@RequestMapping(value = "/board_modify", method = RequestMethod.POST)
 	public String modifyAct(MultipartFile file, HttpServletRequest request, SboardDto dto, RedirectAttributes rttr) throws Exception {
 		String res = "fail";
@@ -91,7 +100,6 @@ public class SboardController {
 		String uploadpath = request.getSession().getServletContext().getRealPath("/") + "/upload";
 		File target = new File(uploadpath, filename);
 		FileCopyUtils.copy(file.getBytes(), target);
-		System.out.println(uid.toString().length());
 		if (file.getOriginalFilename() != "") {
 			dto.setImage(filename);
 		} else {
